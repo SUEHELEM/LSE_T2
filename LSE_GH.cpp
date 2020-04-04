@@ -36,6 +36,7 @@ Nodo* Nodo::Obtienesig()
 int Nodo::Obtienedato()
 {	return(this->dato);
 }
+
 class LSE
 {	private:
 		Nodo *Inicio;
@@ -53,17 +54,54 @@ class LSE
 		void Borrar(int);
 };
 
+void LSE::InsertarI(int x)
+{
+	if(!Inicio)
+		Inicio=new Nodo(x);
+	else
+	{
+		Nodo *Yoquieropasar=new Nodo(x);
+		Yoquieropasar->Asignasig(Inicio);
+		Inicio=Yoquieropasar;
+	}
 
 
+void LSE::InsertarF(int x)
+{
+	if(!Inicio)
+		Inicio=new Nodo(x);
+	else
+	{
+		Nodo *Auxilio=new Nodo(x);
+		while(Auxilio->ObtieneSig()!=NULL)
+		{
+			Auxilio=Auxilio->Obtienesig();
+			Nodo *Auxiliox2=new Nodo(x);
+			Auxilio->Asignasig(Auxiliox2);
+		}
+	}
+}
 
 
+void LSE::Imprimir()
+{
+	if(!Inicio)
+		cout<<"Lista Vacia"<<endl;
+	else
+	{
+		Nodo *Sobrevivir=Inicio;
+		while(Sobrevivir!=NULL)
+		{
+			Sobrevivir->Imprimir();
+			Sobrevivir=Sobrevivir->Obtienesig();
+		}
+	}
+}
+	
 
 
 int main(int argc, const char * argv[])
-{
-    
-    
-    
+{    
     LSE A;
     int opc, dato;
     do{
